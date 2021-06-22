@@ -1,3 +1,4 @@
+import { badRequest } from "@hapi/boom";
 import { hash } from "bcrypt";
 import { Repository } from "typeorm";
 
@@ -19,7 +20,7 @@ class CreateUserService {
 
   async execute ({ name, email, admin, password }: Request):Promise<User> {
     if (await this.usersRepository.findOne({ email })) {
-      throw new Error('User already exists')
+      throw badRequest('User already exists', { code: 140 })
     };
 
     const user = this.usersRepository.create({
