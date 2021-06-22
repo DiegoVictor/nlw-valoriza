@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev:server": "ts-node-dev src/server.ts"
+    "dev:server": "ts-node-dev src/server.ts",
+    "typeorm": "ts-node-dev node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
