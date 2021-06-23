@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
+import { Request, Response } from 'express';
+import { getCustomRepository } from 'typeorm';
 
-import { TagsRepositories } from "../repositories/TagsRepositories";
-import { CreateTagService } from "../services/CreateTagService";
+import { TagsRepositories } from '../repositories/TagsRepositories';
+import { CreateTagService } from '../services/CreateTagService';
 
 class CreateTagController {
   async handle(request: Request, response: Response): Promise<Response> {
@@ -17,4 +17,4 @@ class CreateTagController {
   }
 }
 
-export { CreateTagController }
+export { CreateTagController };

@@ -8,8 +8,8 @@ import ensureAdmin from '../middlewares/ensureAdmin';
 
 const router = Router();
 
-const createUserController = new CreateUserController()
-const createTagController = new CreateTagController()
+const createUserController = new CreateUserController();
+const createTagController = new CreateTagController();
 
 router.post('/users', userValidator, createUserController.handle);
 

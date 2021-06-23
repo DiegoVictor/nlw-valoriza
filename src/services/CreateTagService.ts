@@ -1,7 +1,7 @@
-import { badRequest } from "@hapi/boom";
-import { Repository } from "typeorm";
+import { badRequest } from '@hapi/boom';
+import { Repository } from 'typeorm';
 
-import { Tag } from "../entities/Tag";
+import { Tag } from '../entities/Tag';
 
 class CreateTagService {
   private tagsRepository: Repository<Tag>;
@@ -10,10 +10,10 @@ class CreateTagService {
     this.tagsRepository = tagsRepository;
   }
 
-  async execute (name: string):Promise<Tag> {
+  async execute(name: string): Promise<Tag> {
     if (await this.tagsRepository.findOne({ name })) {
-      throw badRequest('Tag already exists', { code: 240 })
-    };
+      throw badRequest('Tag already exists', { code: 240 });
+    }
 
     const tag = this.tagsRepository.create({ name });
     await this.tagsRepository.save(tag);
@@ -22,4 +22,4 @@ class CreateTagService {
   }
 }
 
-export { CreateTagService }
+export { CreateTagService };

@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
+import { Request, Response } from 'express';
+import { getCustomRepository } from 'typeorm';
 
-import { UsersRepositories } from "../repositories/UsersRepositories";
-import { CreateUserService } from "../services/CreateUserService";
+import { UsersRepositories } from '../repositories/UsersRepositories';
+import { CreateUserService } from '../services/CreateUserService';
 
 class CreateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
@@ -15,11 +15,11 @@ class CreateUserController {
       name,
       email,
       password,
-      admin
+      admin,
     });
 
     return response.json(user)
   }
 }
 
-export { CreateUserController }
+export { CreateUserController };

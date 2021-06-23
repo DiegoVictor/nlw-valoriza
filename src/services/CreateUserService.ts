@@ -1,8 +1,8 @@
-import { badRequest } from "@hapi/boom";
-import { hash } from "bcrypt";
-import { Repository } from "typeorm";
+import { badRequest } from '@hapi/boom';
+import { hash } from 'bcrypt';
+import { Repository } from 'typeorm';
 
-import { User } from "../entities/User";
+import { User } from '../entities/User';
 
 interface Request {
   name: string;
@@ -18,16 +18,16 @@ class CreateUserService {
     this.usersRepository = usersRepository;
   }
 
-  async execute ({ name, email, admin, password }: Request):Promise<User> {
+  async execute({ name, email, admin, password }: Request): Promise<User> {
     if (await this.usersRepository.findOne({ email })) {
-      throw badRequest('User already exists', { code: 140 })
-    };
+      throw badRequest('User already exists', { code: 140 });
+    }
 
     const user = this.usersRepository.create({
       name,
       email,
       admin,
-      password: await hash(password, 8)
+      password: await hash(password, 8),
     });
     await this.usersRepository.save(user);
 
@@ -35,4 +35,4 @@ class CreateUserService {
   }
 }
 
-export { CreateUserService }
+export { CreateUserService };

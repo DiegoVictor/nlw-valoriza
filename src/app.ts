@@ -5,7 +5,7 @@ import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import { errors } from 'celebrate'
+import { errors } from 'celebrate';
 import { isBoom } from '@hapi/boom';
 
 import './database';
@@ -22,12 +22,7 @@ app.use('/v1', router);
 
 app.use(errors());
 app.use(
-  async (
-    error: Error,
-    _: Request,
-    response: Response,
-    next: NextFunction
-  ) => {
+  async (error: Error, _: Request, response: Response, next: NextFunction) => {
     if (isBoom(error)) {
       const { statusCode, payload } = error.output;
 
@@ -42,4 +37,4 @@ app.use(
   }
 );
 
-export { app }
+export { app };
