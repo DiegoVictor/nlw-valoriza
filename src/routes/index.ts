@@ -9,6 +9,7 @@ import { AuthenticateUserController } from '../controllers/AuthenticateUserContr
 import emailAndPasswordValidator from '../validators/emailAndPasswordValidator';
 import complimentValidator from '../validators/complimentValidator';
 import { CreateComplimentController } from '../controllers/CreateComplimentController';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const router = Router();
 
@@ -25,10 +26,17 @@ router.post(
 
 router.post('/users', userValidator, createUserController.handle);
 
-router.post('/tags', ensureAdmin, nameValidator, createTagController.handle);
+router.post(
+  '/tags',
+  ensureAuthenticated,
+  ensureAdmin,
+  nameValidator,
+  createTagController.handle
+);
 
 router.post(
   '/compliments',
+  ensureAuthenticated,
   complimentValidator,
   createComplimentController.handle
 );
