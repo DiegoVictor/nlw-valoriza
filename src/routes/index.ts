@@ -7,12 +7,15 @@ import nameValidator from '../validators/nameValidator';
 import ensureAdmin from '../middlewares/ensureAdmin';
 import { AuthenticateUserController } from '../controllers/AuthenticateUserController';
 import emailAndPasswordValidator from '../validators/emailAndPasswordValidator';
+import complimentValidator from '../validators/complimentValidator';
+import { CreateComplimentController } from '../controllers/CreateComplimentController';
 
 const router = Router();
 
 const authenticateUserController = new AuthenticateUserController();
 const createUserController = new CreateUserController();
 const createTagController = new CreateTagController();
+const createComplimentController = new CreateComplimentController();
 
 router.post(
   '/sessions',
@@ -23,5 +26,11 @@ router.post(
 router.post('/users', userValidator, createUserController.handle);
 
 router.post('/tags', ensureAdmin, nameValidator, createTagController.handle);
+
+router.post(
+  '/compliments',
+  complimentValidator,
+  createComplimentController.handle
+);
 
 export { router };
