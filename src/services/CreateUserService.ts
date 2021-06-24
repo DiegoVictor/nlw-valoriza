@@ -18,7 +18,12 @@ class CreateUserService {
     this.usersRepository = usersRepository;
   }
 
-  async execute({ name, email, admin, password }: Request): Promise<User> {
+  async execute({
+    name,
+    email,
+    admin = false,
+    password,
+  }: Request): Promise<User> {
     if (await this.usersRepository.findOne({ email })) {
       throw badRequest('User already exists', { code: 140 });
     }
