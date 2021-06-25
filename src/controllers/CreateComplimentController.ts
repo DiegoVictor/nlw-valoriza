@@ -7,7 +7,7 @@ import { CreateComplimentService } from '../services/CreateComplimentService';
 
 class CreateComplimentController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { tag_id, user_receiver, message } = request.body;
+    const { tag_id, receiver_id, message } = request.body;
     const { user_id } = request;
 
     const usersRepositories = getCustomRepository(UsersRepositories);
@@ -22,8 +22,8 @@ class CreateComplimentController {
 
     const compliment = await createComplimentService.execute({
       tag_id,
-      user_sender: user_id,
-      user_receiver,
+      sender_id: user_id,
+      receiver_id,
       message,
     });
 
