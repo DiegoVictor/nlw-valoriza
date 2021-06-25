@@ -9,10 +9,10 @@ class ListSentComplimentsService {
     this.complimentsRepository = complimentsRepository;
   }
 
-  async execute(user_sender: string): Promise<Compliment[]> {
+  async execute(sender_id: string): Promise<Record<string, string | boolean>> {
     const compliments = await this.complimentsRepository.find({
       where: {
-        user_sender,
+        sender_id,
       },
       relations: ['receiver', 'sender', 'tag'],
     });

@@ -6,8 +6,8 @@ import { User } from '../entities/User';
 
 interface Request {
   tag_id: string;
-  user_sender: string;
-  user_receiver: string;
+  sender_id: string;
+  receiver_id: string;
   message: string;
 }
 
@@ -25,25 +25,25 @@ class CreateComplimentService {
 
   async execute({
     tag_id,
-    user_sender,
-    user_receiver,
+    sender_id,
+    receiver_id,
     message,
   }: Request): Promise<Compliment> {
-    if (user_receiver === user_sender) {
+    if (receiver_id === sender_id) {
       throw badRequest(
         'Is not allowed create a compliment from and to the same user'
       );
     }
 
-    const receiver = await this.usersRepository.findOne(user_receiver);
+    const receiver = await this.usersRepository.findOne(receiver_id);
     if (!receiver) {
       throw notFound('Receiver user not found', { code: 344 });
     }
 
     const compliment = this.complimentsRepository.create({
       tag_id,
-      user_sender,
-      user_receiver,
+      sender_id,
+      receiver_id,
       message,
     });
     await this.complimentsRepository.save(compliment);

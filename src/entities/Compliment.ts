@@ -16,16 +16,16 @@ export class Compliment {
   readonly id: string;
 
   @Column()
-  user_sender: string;
+  sender_id: string;
 
-  @JoinColumn({ name: 'user_sender' })
+  @JoinColumn({ name: 'sender_id' })
   @ManyToOne(() => User)
   sender: User;
 
   @Column()
-  user_receiver: string;
+  receiver_id: string;
 
-  @JoinColumn({ name: 'user_receiver' })
+  @JoinColumn({ name: 'receiver_id' })
   @ManyToOne(() => User)
   receiver: User;
 
