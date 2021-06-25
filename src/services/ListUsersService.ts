@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
+import { classToPlain } from 'class-transformer';
 
 import { User } from '../entities/User';
 
@@ -9,8 +10,9 @@ class ListUsersService {
     this.usersRepository = usersRepository;
   }
 
-  async execute(): Promise<User[]> {
-    return this.usersRepository.find();
+  async execute(): Promise<Record<string, string | boolean>> {
+    const users = await this.usersRepository.find();
+    return classToPlain(users);
   }
 }
 

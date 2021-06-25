@@ -1,6 +1,7 @@
 import { badRequest } from '@hapi/boom';
 import { hash } from 'bcrypt';
 import { Repository } from 'typeorm';
+import { classToPlain } from 'class-transformer';
 
 import { User } from '../entities/User';
 
@@ -23,7 +24,7 @@ class CreateUserService {
     email,
     admin = false,
     password,
-  }: Request): Promise<User> {
+  }: Request): Promise<Record<string, string | boolean>> {
     if (await this.usersRepository.findOne({ email })) {
       throw badRequest('User already exists', { code: 140 });
     }
@@ -36,9 +37,7 @@ class CreateUserService {
     });
     await this.usersRepository.save(user);
 
-    delete user.password;
-
-    return user;
+    return classToPlain(user);
   }
 }
 
