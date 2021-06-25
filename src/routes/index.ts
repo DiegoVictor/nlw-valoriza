@@ -11,6 +11,7 @@ import complimentValidator from '../validators/complimentValidator';
 import { CreateComplimentController } from '../controllers/CreateComplimentController';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import { ListUserSentComplimentsController } from '../controllers/ListUserSentComplimentsController';
+import { ListUserReceivedComplimentsController } from '../controllers/ListUserReceivedComplimentsController';
 
 const router = Router();
 
@@ -18,6 +19,8 @@ const authenticateUserController = new AuthenticateUserController();
 const createUserController = new CreateUserController();
 const createTagController = new CreateTagController();
 const createComplimentController = new CreateComplimentController();
+const listUserReceivedComplimentsController =
+  new ListUserReceivedComplimentsController();
 const listUserSentComplimentsController =
   new ListUserSentComplimentsController();
 
@@ -41,6 +44,11 @@ router.get(
   '/compliments/sent',
   ensureAuthenticated,
   listUserSentComplimentsController.handle
+);
+router.get(
+  '/compliments/received',
+  ensureAuthenticated,
+  listUserReceivedComplimentsController.handle
 );
 router.post(
   '/compliments',
