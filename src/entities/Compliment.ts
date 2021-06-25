@@ -20,14 +20,14 @@ export class Compliment {
 
   @JoinColumn({ name: 'user_sender' })
   @ManyToOne(() => User)
-  userSender: User;
+  sender: User;
 
   @Column()
   user_receiver: string;
 
   @JoinColumn({ name: 'user_receiver' })
   @ManyToOne(() => User)
-  userReceiver: User;
+  receiver: User;
 
   @Column()
   tag_id: string;
