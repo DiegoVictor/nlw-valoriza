@@ -10,6 +10,7 @@ import emailAndPasswordValidator from '../validators/emailAndPasswordValidator';
 import complimentValidator from '../validators/complimentValidator';
 import { CreateComplimentController } from '../controllers/CreateComplimentController';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import { ListUserSentComplimentsController } from '../controllers/ListUserSentComplimentsController';
 
 const router = Router();
 
@@ -17,6 +18,8 @@ const authenticateUserController = new AuthenticateUserController();
 const createUserController = new CreateUserController();
 const createTagController = new CreateTagController();
 const createComplimentController = new CreateComplimentController();
+const listUserSentComplimentsController =
+  new ListUserSentComplimentsController();
 
 router.post(
   '/sessions',
@@ -34,6 +37,11 @@ router.post(
   createTagController.handle
 );
 
+router.get(
+  '/compliments/sent',
+  ensureAuthenticated,
+  listUserSentComplimentsController.handle
+);
 router.post(
   '/compliments',
   ensureAuthenticated,
