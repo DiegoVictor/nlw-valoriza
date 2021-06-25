@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
+import { classToPlain } from 'class-transformer';
 
 import { Compliment } from '../entities/Compliment';
 
@@ -9,7 +10,9 @@ class ListReceivedComplimentsService {
     this.complimentsRepository = complimentsRepository;
   }
 
+  async execute(
     receiver_id: string
+  ): Promise<Record<string, string | boolean>> {
     const compliments = await this.complimentsRepository.find({
       where: {
         receiver_id,
@@ -17,7 +20,7 @@ class ListReceivedComplimentsService {
       relations: ['receiver', 'sender', 'tag'],
     });
 
-    return compliments;
+    return classToPlain(compliments);
   }
 }
 

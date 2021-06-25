@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { v4 as uuid } from 'uuid';
 import { Tag } from './Tag';
 import { User } from './User';
@@ -15,6 +16,7 @@ export class Compliment {
   @PrimaryColumn()
   readonly id: string;
 
+  @Exclude()
   @Column()
   sender_id: string;
 
@@ -22,6 +24,7 @@ export class Compliment {
   @ManyToOne(() => User)
   sender: User;
 
+  @Exclude()
   @Column()
   receiver_id: string;
 
@@ -29,6 +32,7 @@ export class Compliment {
   @ManyToOne(() => User)
   receiver: User;
 
+  @Exclude()
   @Column()
   tag_id: string;
 

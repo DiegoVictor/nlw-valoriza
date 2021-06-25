@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
+import { classToPlain } from 'class-transformer';
 
 import { Compliment } from '../entities/Compliment';
 
@@ -17,7 +18,7 @@ class ListSentComplimentsService {
       relations: ['receiver', 'sender', 'tag'],
     });
 
-    return compliments;
+    return classToPlain(compliments);
   }
 }
 
