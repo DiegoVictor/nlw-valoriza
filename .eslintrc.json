@@ -21,6 +21,8 @@
     "import/prefer-default-export": "off",
     "class-methods-use-this": "off",
     "camelcase": "off",
+    "lines-between-class-members": "off",
+    "no-param-reassign": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
