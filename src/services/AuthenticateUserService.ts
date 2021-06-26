@@ -19,12 +19,12 @@ class AuthenticateUserService {
     const user = await this.usersRepository.findOne({ email });
 
     if (!user) {
-      throw badRequest('Email or password is incorret');
+      throw badRequest('Email and/or password is incorret', { code: 440 });
     }
 
     const passwordMatch = await compare(password, user.password);
     if (!passwordMatch) {
-      throw badRequest('Email or password is incorret');
+      throw badRequest('Email and/or password is incorret', { code: 441 });
     }
 
     const token = sign({ email }, process.env.JWT_SECRET, {

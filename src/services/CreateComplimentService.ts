@@ -31,7 +31,8 @@ class CreateComplimentService {
   }: Request): Promise<Compliment> {
     if (receiver_id === sender_id) {
       throw badRequest(
-        'Is not allowed create a compliment from and to the same user'
+        'Is not allowed create a compliment from and to the same user',
+        { code: 340 }
       );
     }
 
