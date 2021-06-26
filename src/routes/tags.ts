@@ -5,6 +5,7 @@ import nameValidator from '../validators/nameValidator';
 import ensureAdmin from '../middlewares/ensureAdmin';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import { ListTagsController } from '../controllers/ListTagsController';
+import pageValidator from '../validators/pageValidator';
 
 const tagsRoutes = Router();
 
@@ -14,6 +15,7 @@ const listTagsController = new ListTagsController();
 tagsRoutes.get(
   '/',
   ensureAuthenticated,
+  pageValidator,
   listTagsController.handle
 );
 tagsRoutes.post(

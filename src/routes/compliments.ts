@@ -5,6 +5,8 @@ import { CreateComplimentController } from '../controllers/CreateComplimentContr
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 import { ListUserSentComplimentsController } from '../controllers/ListUserSentComplimentsController';
 import { ListUserReceivedComplimentsController } from '../controllers/ListUserReceivedComplimentsController';
+import pageValidator from '../validators/pageValidator';
+
 const complimentsRoutes = Router();
 
 const createComplimentController = new CreateComplimentController();
@@ -16,11 +18,13 @@ const listUserSentComplimentsController =
 complimentsRoutes.get(
   '/sent',
   ensureAuthenticated,
+  pageValidator,
   listUserSentComplimentsController.handle
 );
 complimentsRoutes.get(
   '/received',
   ensureAuthenticated,
+  pageValidator,
   listUserReceivedComplimentsController.handle
 );
 complimentsRoutes.post(
