@@ -12,11 +12,11 @@ export class CreateCompliments1624491121744 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'user_sender',
+            name: 'sender_id',
             type: 'uuid',
           },
           {
-            name: 'user_receiver',
+            name: 'receiver_id',
             type: 'uuid',
           },
           {
@@ -38,7 +38,7 @@ export class CreateCompliments1624491121744 implements MigrationInterface {
             name: 'FKUserSenderCompliments',
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
-            columnNames: ['user_sender'],
+            columnNames: ['sender_id'],
             onUpdate: 'SET NULL',
             onDelete: 'SET NULL',
           },
@@ -46,7 +46,7 @@ export class CreateCompliments1624491121744 implements MigrationInterface {
             name: 'FKUserReceiverCompliments',
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
-            columnNames: ['user_receiver'],
+            columnNames: ['receiver_id'],
             onUpdate: 'SET NULL',
             onDelete: 'SET NULL',
           },
