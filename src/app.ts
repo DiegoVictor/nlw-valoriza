@@ -11,6 +11,7 @@ import { isBoom } from '@hapi/boom';
 import './database';
 
 import { router } from './routes';
+import routeAliases from './middlewares/routeAliases';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
+app.use(routeAliases);
 app.use('/v1', router);
 
 app.use(errors());
