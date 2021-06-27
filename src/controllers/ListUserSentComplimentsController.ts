@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import { ComplimentsRepositories } from '../repositories/ComplimentsRepositories';
+import { CountSentComplimentsService } from '../services/CountSentComplimentsService';
 import { ListSentComplimentsService } from '../services/ListSentComplimentsService';
 
 class ListUserSentComplimentsController {
@@ -12,7 +13,15 @@ class ListUserSentComplimentsController {
     const listSentComplimentsService = new ListSentComplimentsService(
       complimentsRepository
     );
-    const compliments = await listSentComplimentsService.execute(user_id);
+    const countSentComplimentsService = new CountSentComplimentsService(
+      complimentsRepository
+    );
+    const [compliments, count] = await Promise.all([
+      listSentComplimentsService.execute(user_id, Number(page), limit),
+      countSentComplimentsService.execute(user_id),
+    ]);
+
+    response.header('X-Total-Count', count.toString());
 
     return response.json(compliments);
   }
