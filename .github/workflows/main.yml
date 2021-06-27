@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PORT: '3000'
+      DOCS_URL: 'https://github.com/DiegoVictor/nlv-valoriza#errors-reference'
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_EXPIRATION_TIME: '15m'
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.3.0'
+      - uses: actions/checkout@v2
+      - name: Run coverage
+        run: |
+          npm install
+          npm run test
+      - uses: codecov/codecov-action@v1
+        with:
+          directory: ./tests/coverage/
