@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+
 import { UsersRepositories } from '../repositories/UsersRepositories';
 import { AuthenticateUserService } from '../services/AuthenticateUserService';
 

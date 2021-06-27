@@ -2,6 +2,7 @@ import { badRequest } from '@hapi/boom';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { Repository } from 'typeorm';
+
 import { User } from '../entities/User';
 
 interface Request {

@@ -1,6 +1,7 @@
 import { unauthorized } from '@hapi/boom';
 import { NextFunction, Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+
 import { UsersRepositories } from '../repositories/UsersRepositories';
 
 export default async (

@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { v4 as uuid } from 'uuid';
+
 import { Tag } from './Tag';
 import { User } from './User';
 
