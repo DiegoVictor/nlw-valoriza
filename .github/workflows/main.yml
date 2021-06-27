@@ -10,7 +10,7 @@ jobs:
       DOCS_URL: 'https://github.com/DiegoVictor/nlv-valoriza#errors-reference'
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       JWT_EXPIRATION_TIME: '15m'
-      CODECOV_TOKENÇ ${{ secrets.CODECOV_TOKEN }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - uses: actions/setup-node@v1
         with:
