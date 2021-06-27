@@ -1,4 +1,4 @@
-# [API] Be The Hero
+# [API] NLW Valoriza
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/nlw-valoriza/CI?logo=github&style=flat-square)](https://github.com/DiegoVictor/nlw-valoriza/actions)
 [![eslint](https://img.shields.io/badge/eslint-7.29.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
@@ -100,7 +100,7 @@ Instead of only throw a simple message and HTTP Status Code this API return frie
 |---|---|---
 |140|User already exists|An user with the same email already is registered.
 |240|Tag already exists|The provided tag name already exists in the database.
-|340|Is not allowed create a compliment from and to the same user|You can not create a compliment using the same user id in the sender and receiver.
+|340|Is not allowed create a compliment from and to the same user|You can not create a compliment using the same user `id` in the sender and receiver.
 |344|Receiver user not found|The receiver user `id` provided not matches any registry in the database.
 |440|Email and/or password is incorret|The provided `email` not match a existing user in the database.
 |441|Email and/or password is incorret|Wrong `password`.
