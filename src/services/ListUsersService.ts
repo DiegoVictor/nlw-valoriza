@@ -10,8 +10,14 @@ class ListUsersService {
     this.usersRepository = usersRepository;
   }
 
-  async execute(): Promise<Record<string, string | boolean>> {
-    const users = await this.usersRepository.find();
+  async execute(
+    page: number,
+    limit: number
+  ): Promise<Record<string, string | boolean>> {
+    const users = await this.usersRepository.find({
+      take: limit,
+      skip: (page - 1) * limit,
+    });
     return classToPlain(users);
   }
 }

@@ -9,8 +9,11 @@ class ListTagsService {
     this.tagsRepository = tagsRepository;
   }
 
-  async execute(): Promise<Tag[]> {
-    return this.tagsRepository.find();
+  async execute(page: number, limit: number): Promise<Tag[]> {
+    return this.tagsRepository.find({
+      take: limit,
+      skip: (page - 1) * limit,
+    });
   }
 }
 
