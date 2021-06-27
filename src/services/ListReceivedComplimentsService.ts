@@ -11,13 +11,17 @@ class ListReceivedComplimentsService {
   }
 
   async execute(
-    receiver_id: string
+    receiver_id: string,
+    page: number,
+    limit: number
   ): Promise<Record<string, string | boolean>> {
     const compliments = await this.complimentsRepository.find({
       where: {
         receiver_id,
       },
       relations: ['receiver', 'sender', 'tag'],
+      take: limit,
+      skip: (page - 1) * limit,
     });
 
     return classToPlain(compliments);

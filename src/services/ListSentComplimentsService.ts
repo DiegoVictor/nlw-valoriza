@@ -10,12 +10,18 @@ class ListSentComplimentsService {
     this.complimentsRepository = complimentsRepository;
   }
 
-  async execute(sender_id: string): Promise<Record<string, string | boolean>> {
+  async execute(
+    sender_id: string,
+    page: number,
+    limit: number
+  ): Promise<Record<string, string | boolean>> {
     const compliments = await this.complimentsRepository.find({
       where: {
         sender_id,
       },
       relations: ['receiver', 'sender', 'tag'],
+      take: limit,
+      skip: (page - 1) * limit,
     });
 
     return classToPlain(compliments);
