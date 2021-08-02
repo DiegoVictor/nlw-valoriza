@@ -1,4 +1,4 @@
-# [API] NLW Valoriza
+# NLW Valoriza
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/nlw-valoriza/CI?logo=github&style=flat-square)](https://github.com/DiegoVictor/nlw-valoriza/actions)
 [![typescript](https://img.shields.io/badge/typescript-4.3.4-3178c6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![eslint](https://img.shields.io/badge/eslint-7.29.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
