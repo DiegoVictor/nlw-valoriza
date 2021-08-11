@@ -1,0 +1,18 @@
+{
+  "openapi":"3.0.2",
+  "info": {
+    "title":"NLW Valoriza",
+    "version":"1.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/DiegoVictor/nlw-valoriza/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url":"https://localhost:3000/v1"
+    }
+  ],
+  "paths": {
+  }
+}
