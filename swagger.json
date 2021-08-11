@@ -93,5 +93,125 @@
         }
       }
     },
+    "/users": {
+      "get": {
+        "tags": ["users"],
+        "security": [{
+          "bearer": []
+        }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return users list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                },
+                "example": [
+                  {
+                    "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
+                    "name": "John Doe",
+                    "email": "johndoe@example.com",
+                    "admin": true,
+                    "created_at": "2021-08-10T23:45:40.000Z",
+                    "updated_at": "2021-08-10T23:45:40.000Z"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "description": "Total number of registries in the database",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name", "email", "password"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "admin": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "name": "John Doe",
+                "email": "johndoe@example.com",
+                "password": "123456",
+                "admin": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return the creatyed user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "User": {
+                    "$ref": "#/components/examples/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": "User already exists",
+                  "code": 140,
+                  "docs": "https://github.com/DiegoVictor/nlw-valoriza#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   }
 }
