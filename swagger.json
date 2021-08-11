@@ -14,5 +14,84 @@
     }
   ],
   "paths": {
+    "/sessions": {
+      "post": {
+        "tags": ["sessions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email", "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "johndoe@example.com",
+                "password": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return an access token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "access_token": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE2Mjg2MzkxNDQsImV4cCI6MTYyODY0MDA0NCwic3ViIjoiNzNhZDU5NjYtZWYxOC00OWRkLWJjNzYtNDRiYmMzZDY4MDdmIn0.GzUh2OW7euhS8usCcerm1z6eYZSobG4gbsfI2mQv1kU"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email and/or password is incorret",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "440": {
+                    "value": {
+                      "statusCode": 400,
+                      "error": "Bad Request",
+                      "message": "Email and/or password is incorret",
+                      "code": 440,
+                      "docs": "https://github.com/DiegoVictor/nlw-valoriza#errors-reference"
+                    }
+                  },
+                  "441": {
+                    "value": {
+                      "statusCode": 400,
+                      "error": "Bad Request",
+                      "message": "Email and/or password is incorret",
+                      "code": 441,
+                      "docs": "https://github.com/DiegoVictor/nlw-valoriza#errors-reference"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   }
 }
