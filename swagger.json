@@ -665,5 +665,44 @@
         "bearerFormat": "JWT"
       }
     },
+    "examples": {
+      "User": {
+        "value": {
+          "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "admin": true,
+          "created_at": "2021-08-10T23:45:40.000Z",
+          "updated_at": "2021-08-10T23:45:40.000Z"
+        }
+      },
+      "Users": {
+        "value": [{
+          "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "admin": true,
+          "created_at": "2021-08-10T23:45:40.000Z",
+          "updated_at": "2021-08-10T23:45:40.000Z"
+        }]
+      },
+      "Tag": {
+        "value": {
+          "id": "8bec8765-868d-45ba-b717-5e191e566e29",
+          "name": "inspiring",
+          "label": "#inspiring",
+          "created_at": "2021-08-11T22:00:28.000Z",
+          "updated_at": "2021-08-11T22:00:28.000Z"
+        }
+      },
+      "Tags": {
+        "value": [{
+          "id": "8bec8765-868d-45ba-b717-5e191e566e29",
+          "name": "inspiring",
+          "created_at": "2021-08-11T22:00:28.000Z",
+          "updated_at": "2021-08-11T22:00:28.000Z"
+        }]
+      }
+    }
   }
 }
