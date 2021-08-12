@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import 'reflect-metadata';
 import 'express-async-errors';
+import swagger from 'swagger-ui-express';
 
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
@@ -10,7 +11,8 @@ import { isBoom } from '@hapi/boom';
 
 import './database';
 
-import { router } from './routes';
+import swaggerDocument from './swagger.json';
+import { routes } from './routes';
 import routeAliases from './middlewares/routeAliases';
 
 const app = express();
@@ -19,8 +21,10 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
+app.use('/docs', swagger.serve, swagger.setup(swaggerDocument));
+
 app.use(routeAliases);
-app.use('/v1', router);
+app.use('/v1', routes);
 
 app.use(errors());
 app.use(
