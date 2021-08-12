@@ -208,5 +208,111 @@
         }
       }
     },
+    "/tags": {
+      "get": {
+        "tags": ["tags"],
+        "security": [{
+          "bearer": []
+        }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tag"
+                  }
+                },
+                "examples": {
+                  "Tags": {
+                    "$ref": "#/components/examples/Tags"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Count": {
+                "description": "Total number of registries in the database",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["tags"],
+        "security": [{
+          "bearer": []
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "name": "inspiring"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create a new tag",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tag"
+                },
+                "examples": {
+                  "Tag": {
+                    "$ref": "#/components/examples/Tag"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Tag already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "error": "Bad Request",
+                  "message": "Tag already exists",
+                  "code": 240,
+                  "docs": "https://github.com/DiegoVictor/nlw-valoriza#errors-reference"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
   }
 }
