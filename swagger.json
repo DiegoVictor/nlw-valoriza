@@ -174,7 +174,7 @@
         },
         "responses": {
           "201": {
-            "description": "Return the creatyed user",
+            "description": "Return the created user",
             "content": {
               "application/json": {
                 "schema": {
