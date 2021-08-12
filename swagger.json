@@ -120,16 +120,11 @@
                     "$ref": "#/components/schemas/User"
                   }
                 },
-                "example": [
-                  {
-                    "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
-                    "name": "John Doe",
-                    "email": "johndoe@example.com",
-                    "admin": true,
-                    "created_at": "2021-08-10T23:45:40.000Z",
-                    "updated_at": "2021-08-10T23:45:40.000Z"
+                "examples": {
+                  "Users": {
+                    "$ref": "#/components/examples/Users"
                   }
-                ]
+                }
               }
             },
             "headers": {
