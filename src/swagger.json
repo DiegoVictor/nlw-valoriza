@@ -133,6 +133,12 @@
                 "schema": {
                   "type": "integer"
                 }
+              },
+              "Link": {
+                "description": "Next, Previous, First and Last page's urls",
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -247,6 +253,12 @@
                 "description": "Total number of registries in the database",
                 "schema": {
                   "type": "integer"
+                }
+              },
+              "Link": {
+                "description": "Next, Previous, First and Last page's urls",
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -479,6 +491,12 @@
                 "schema": {
                   "type": "integer"
                 }
+              },
+              "Link": {
+                "description": "Next, Previous, First and Last page's urls",
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -565,6 +583,12 @@
                 "description": "Total number of registries in the database",
                 "schema": {
                   "type": "integer"
+                }
+              },
+              "Link": {
+                "description": "Next, Previous, First and Last page's urls",
+                "schema": {
+                  "type": "string"
                 }
               }
             }
