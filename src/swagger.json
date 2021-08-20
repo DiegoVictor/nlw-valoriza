@@ -23,7 +23,8 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "email", "password"
+                  "email",
+                  "password"
                 ],
                 "properties": {
                   "email": {
@@ -96,9 +97,11 @@
     "/users": {
       "get": {
         "tags": ["users"],
-        "security": [{
-          "bearer": []
-        }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -120,11 +123,16 @@
                     "$ref": "#/components/schemas/User"
                   }
                 },
-                "examples": {
-                  "Users": {
-                    "$ref": "#/components/examples/Users"
+                "example": [
+                  {
+                    "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
+                    "name": "John Doe",
+                    "email": "johndoe@example.com",
+                    "admin": true,
+                    "created_at": "2021-08-10T23:45:40.000Z",
+                    "updated_at": "2021-08-10T23:45:40.000Z"
                   }
-                }
+                ]
               }
             },
             "headers": {
@@ -152,7 +160,9 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "name", "email", "password"
+                  "name",
+                  "email",
+                  "password"
                 ],
                 "properties": {
                   "name": {
@@ -186,10 +196,13 @@
                 "schema": {
                   "$ref": "#/components/schemas/User"
                 },
-                "examples": {
-                  "User": {
-                    "$ref": "#/components/examples/User"
-                  }
+                "example": {
+                  "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
+                  "name": "John Doe",
+                  "email": "johndoe@example.com",
+                  "admin": true,
+                  "created_at": "2021-08-10T23:45:40.000Z",
+                  "updated_at": "2021-08-10T23:45:40.000Z"
                 }
               }
             }
@@ -217,9 +230,11 @@
     "/tags": {
       "get": {
         "tags": ["tags"],
-        "security": [{
-          "bearer": []
-        }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -241,11 +256,14 @@
                     "$ref": "#/components/schemas/Tag"
                   }
                 },
-                "examples": {
-                  "Tags": {
-                    "$ref": "#/components/examples/Tags"
+                "example": [
+                    {
+                    "id": "8bec8765-868d-45ba-b717-5e191e566e29",
+                    "name": "inspiring",
+                    "created_at": "2021-08-11T22:00:28.000Z",
+                    "updated_at": "2021-08-11T22:00:28.000Z"
                   }
-                }
+                ]
               }
             },
             "headers": {
@@ -267,9 +285,11 @@
       },
       "post": {
         "tags": ["tags"],
-        "security": [{
-          "bearer": []
-        }],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -299,9 +319,11 @@
                   "$ref": "#/components/schemas/Tag"
                 },
                 "examples": {
-                  "Tag": {
-                    "$ref": "#/components/examples/Tag"
-                  }
+                  "id": "8bec8765-868d-45ba-b717-5e191e566e29",
+                  "name": "inspiring",
+                  "label": "#inspiring",
+                  "created_at": "2021-08-11T22:00:28.000Z",
+                  "updated_at": "2021-08-11T22:00:28.000Z"
                 }
               }
             }
@@ -329,6 +351,11 @@
     "/compliments": {
       "post": {
         "tags": ["compliments"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -413,6 +440,11 @@
     "/compliments/sent": {
       "get": {
         "tags": ["compliments"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -506,6 +538,11 @@
     "/compliments/received": {
       "get": {
         "tags": ["compliments"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -687,45 +724,6 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
-      }
-    },
-    "examples": {
-      "User": {
-        "value": {
-          "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
-          "name": "John Doe",
-          "email": "johndoe@example.com",
-          "admin": true,
-          "created_at": "2021-08-10T23:45:40.000Z",
-          "updated_at": "2021-08-10T23:45:40.000Z"
-        }
-      },
-      "Users": {
-        "value": [{
-          "id": "73ad5966-ef18-49dd-bc76-44bbc3d6807f",
-          "name": "John Doe",
-          "email": "johndoe@example.com",
-          "admin": true,
-          "created_at": "2021-08-10T23:45:40.000Z",
-          "updated_at": "2021-08-10T23:45:40.000Z"
-        }]
-      },
-      "Tag": {
-        "value": {
-          "id": "8bec8765-868d-45ba-b717-5e191e566e29",
-          "name": "inspiring",
-          "label": "#inspiring",
-          "created_at": "2021-08-11T22:00:28.000Z",
-          "updated_at": "2021-08-11T22:00:28.000Z"
-        }
-      },
-      "Tags": {
-        "value": [{
-          "id": "8bec8765-868d-45ba-b717-5e191e566e29",
-          "name": "inspiring",
-          "created_at": "2021-08-11T22:00:28.000Z",
-          "updated_at": "2021-08-11T22:00:28.000Z"
-        }]
       }
     }
   }
