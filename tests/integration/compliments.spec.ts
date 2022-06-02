@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import { Connection, createConnection } from 'typeorm';
 

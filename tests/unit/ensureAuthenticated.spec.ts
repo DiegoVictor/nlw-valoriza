@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { Request } from 'express';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Connection, createConnection, getRepository } from 'typeorm';
 
 import { User } from '../../src/entities/User';
