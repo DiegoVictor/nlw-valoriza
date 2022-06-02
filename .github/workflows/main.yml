@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     env:
       PORT: '3000'
@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: '16.3.0'
+          node-version: '16'
       - uses: actions/checkout@v2
       - name: Run coverage
         run: |
-          npm install
+          npm ci
           npm run test
       - uses: codecov/codecov-action@v1
         with:
