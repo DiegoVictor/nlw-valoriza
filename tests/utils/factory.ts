@@ -5,11 +5,11 @@ factory.define(
   'User',
   {},
   {
-    name: faker.name.findName,
+    name: faker.person.fullName,
     email: faker.internet.email,
     password: faker.internet.password,
     admin: faker.datatype.boolean,
-  }
+  },
 );
 
 factory.define(
@@ -17,18 +17,18 @@ factory.define(
   {},
   {
     name: faker.lorem.word,
-  }
+  },
 );
 
 factory.define(
   'Compliment',
   {},
   {
-    tag_id: faker.datatype.uuid,
-    sender_id: faker.datatype.uuid,
-    receiver_id: faker.datatype.uuid,
+    tag_id: faker.string.uuid,
+    sender_id: faker.string.uuid,
+    receiver_id: faker.string.uuid,
     message: faker.lorem.sentence,
-  }
+  },
 );
 
 export default factory;
