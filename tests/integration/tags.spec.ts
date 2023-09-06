@@ -87,7 +87,7 @@ describe('Tags', () => {
 
     const usersRepository = getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(user)
+      usersRepository.create(user),
     );
 
     const response = await request(app)
@@ -110,7 +110,7 @@ describe('Tags', () => {
 
     const usersRepository = getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(user)
+      usersRepository.create(user),
     );
 
     await request(app)
@@ -139,7 +139,7 @@ describe('Tags', () => {
 
     const usersRepository = getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(user)
+      usersRepository.create(user),
     );
 
     const response = await request(app)

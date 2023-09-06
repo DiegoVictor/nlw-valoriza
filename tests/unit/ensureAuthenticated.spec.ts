@@ -33,7 +33,7 @@ describe('ensureAuthenticated', () => {
     const user = await factory.attrs<User>('User', { admin: true });
     const usersRepository = getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(user)
+      usersRepository.create(user),
     );
 
     const request = {

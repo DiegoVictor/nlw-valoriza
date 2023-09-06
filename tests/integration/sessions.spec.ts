@@ -32,7 +32,7 @@ describe('Sessions', () => {
         password: await hash(password, 8),
         name,
         email,
-      })
+      }),
     );
 
     const response = await request(app).post('/v1/sessions').expect(200).send({
@@ -42,7 +42,7 @@ describe('Sessions', () => {
 
     expect(response.body).toStrictEqual({ access_token: expect.any(String) });
     expect(
-      verify(response.body.access_token, process.env.JWT_SECRET)
+      verify(response.body.access_token, process.env.JWT_SECRET),
     ).toBeTruthy();
   });
 
@@ -73,7 +73,7 @@ describe('Sessions', () => {
         password: await hash(password, 8),
         name,
         email,
-      })
+      }),
     );
 
     const response = await request(app).post('/v1/sessions').expect(400).send({

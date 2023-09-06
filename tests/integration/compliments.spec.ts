@@ -36,11 +36,11 @@ describe('Compliments', () => {
     const complimentsRepository = connection.getRepository(Compliment);
 
     const tag = await tagsRepository.save(
-      tagsRepository.create(await factory.attrs<Tag>('Tag'))
+      tagsRepository.create(await factory.attrs<Tag>('Tag')),
     );
 
     const [sender, receiver] = await Promise.all(
-      users.map((user) => usersRepository.save(usersRepository.create(user)))
+      users.map((user) => usersRepository.save(usersRepository.create(user))),
     );
 
     const message = faker.lorem.sentence();
@@ -50,7 +50,7 @@ describe('Compliments', () => {
         sender_id: sender.id,
         receiver_id: receiver.id,
         message,
-      })
+      }),
     );
 
     delete sender.password;
@@ -92,11 +92,11 @@ describe('Compliments', () => {
     const complimentsRepository = connection.getRepository(Compliment);
 
     const tag = await tagsRepository.save(
-      tagsRepository.create(await factory.attrs<Tag>('Tag'))
+      tagsRepository.create(await factory.attrs<Tag>('Tag')),
     );
 
     const [sender, receiver] = await usersRepository.save(
-      users.map((user) => usersRepository.create(user))
+      users.map((user) => usersRepository.create(user)),
     );
     const compliments = await factory.attrsMany<Compliment>('Compliment', 25, {
       receiver_id: receiver.id,
@@ -106,8 +106,8 @@ describe('Compliments', () => {
 
     await complimentsRepository.save(
       compliments.map((compliment, index) =>
-        complimentsRepository.create({ ...compliment, id: String(index + 1) })
-      )
+        complimentsRepository.create({ ...compliment, id: String(index + 1) }),
+      ),
     );
 
     delete sender.password;
@@ -151,11 +151,11 @@ describe('Compliments', () => {
     const complimentsRepository = connection.getRepository(Compliment);
 
     const tag = await tagsRepository.save(
-      tagsRepository.create(await factory.attrs<Tag>('Tag'))
+      tagsRepository.create(await factory.attrs<Tag>('Tag')),
     );
 
     const [sender, receiver] = await Promise.all(
-      users.map((user) => usersRepository.save(usersRepository.create(user)))
+      users.map((user) => usersRepository.save(usersRepository.create(user))),
     );
 
     const message = faker.lorem.sentence();
@@ -165,7 +165,7 @@ describe('Compliments', () => {
         sender_id: sender.id,
         receiver_id: receiver.id,
         message,
-      })
+      }),
     );
 
     delete sender.password;
@@ -207,11 +207,11 @@ describe('Compliments', () => {
     const complimentsRepository = connection.getRepository(Compliment);
 
     const tag = await tagsRepository.save(
-      tagsRepository.create(await factory.attrs<Tag>('Tag'))
+      tagsRepository.create(await factory.attrs<Tag>('Tag')),
     );
 
     const [sender, receiver] = await usersRepository.save(
-      users.map((user) => usersRepository.create(user))
+      users.map((user) => usersRepository.create(user)),
     );
     const compliments = await factory.attrsMany<Compliment>('Compliment', 25, {
       receiver_id: receiver.id,
@@ -221,8 +221,8 @@ describe('Compliments', () => {
 
     await complimentsRepository.save(
       compliments.map((compliment, index) =>
-        complimentsRepository.create({ ...compliment, id: String(index + 1) })
-      )
+        complimentsRepository.create({ ...compliment, id: String(index + 1) }),
+      ),
     );
 
     delete sender.password;
@@ -272,7 +272,7 @@ describe('Compliments', () => {
 
     const receiver = await factory.attrs<User>('User', { admin: true });
     const { id: receiver_id } = await usersRepository.save(
-      usersRepository.create(receiver)
+      usersRepository.create(receiver),
     );
 
     const message = faker.lorem.sentence();
@@ -300,14 +300,14 @@ describe('Compliments', () => {
 
     const tagsRepository = connection.getRepository(Tag);
     const { id: tag_id } = await tagsRepository.save(
-      tagsRepository.create(tag)
+      tagsRepository.create(tag),
     );
 
     const user = await factory.attrs<User>('User', { admin: true });
 
     const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(user)
+      usersRepository.create(user),
     );
 
     const message = faker.lorem.sentence();
@@ -334,14 +334,14 @@ describe('Compliments', () => {
 
     const tagsRepository = connection.getRepository(Tag);
     const { id: tag_id } = await tagsRepository.save(
-      tagsRepository.create(tag)
+      tagsRepository.create(tag),
     );
 
     const user = await factory.attrs<User>('User', { admin: true });
 
     const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(user)
+      usersRepository.create(user),
     );
 
     const message = faker.lorem.sentence();
@@ -350,7 +350,7 @@ describe('Compliments', () => {
       .set('Authorization', `Bearer ${token(user_id)}`)
       .send({
         tag_id,
-        receiver_id: faker.datatype.uuid(),
+        receiver_id: faker.string.uuid(),
         message,
       });
 

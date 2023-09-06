@@ -26,7 +26,7 @@ describe('Users', () => {
 
     const usersRepository = getRepository(User);
     const [{ id: user_id }] = await usersRepository.save(
-      users.map((user) => usersRepository.create(user))
+      users.map((user) => usersRepository.create(user)),
     );
 
     const response = await request(app)
@@ -52,7 +52,7 @@ describe('Users', () => {
 
     const usersRepository = getRepository(User);
     const [{ id: user_id }] = await usersRepository.save(
-      users.map((user) => usersRepository.create(user))
+      users.map((user) => usersRepository.create(user)),
     );
 
     const response = await request(app)
@@ -79,7 +79,7 @@ describe('Users', () => {
 
     const usersRepository = getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(admin)
+      usersRepository.create(admin),
     );
 
     const response = await request(app)
@@ -104,7 +104,7 @@ describe('Users', () => {
 
     const usersRepository = getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(admin)
+      usersRepository.create(admin),
     );
 
     delete user.admin;
@@ -132,7 +132,7 @@ describe('Users', () => {
 
     const usersRepository = getRepository(User);
     const { id: user_id } = await usersRepository.save(
-      usersRepository.create(admin)
+      usersRepository.create(admin),
     );
 
     await request(app).post('/v1/users').expect(201).send(user);
