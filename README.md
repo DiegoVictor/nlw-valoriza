@@ -7,7 +7,7 @@
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/nlw-valoriza?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/nlw-valoriza)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/nlw-valoriza/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)<br>
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=NLW%20Valoriza&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fnlw-valoriza%2Fmain%2FInsomnia_2021-06-26.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=NLW%20Valoriza&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fnlw-valoriza%2Fmain%2FInsomnia_2023-09-06.json)
 
 
 Allow to register common users and admin users, tags and compliments between users. The app has friendly errors, use JWT to logins, validation, also a simple versioning was made.
