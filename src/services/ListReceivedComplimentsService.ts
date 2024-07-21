@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { classToPlain } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 
 import { Compliment } from '../entities/Compliment';
 
@@ -24,7 +24,7 @@ class ListReceivedComplimentsService {
       skip: (page - 1) * limit,
     });
 
-    return classToPlain(compliments);
+    return instanceToPlain(compliments);
   }
 }
 

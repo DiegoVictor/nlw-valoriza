@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { classToPlain } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 
 import { User } from '../entities/User';
 
@@ -18,7 +18,7 @@ class ListUsersService {
       take: limit,
       skip: (page - 1) * limit,
     });
-    return classToPlain(users);
+    return instanceToPlain(users);
   }
 }
 

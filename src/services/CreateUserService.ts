@@ -1,7 +1,7 @@
 import { badRequest } from '@hapi/boom';
 import { hash } from 'bcrypt';
 import { Repository } from 'typeorm';
-import { classToPlain } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 
 import { User } from '../entities/User';
 
@@ -37,7 +37,7 @@ class CreateUserService {
     });
     await this.usersRepository.save(user);
 
-    return classToPlain(user);
+    return instanceToPlain(user);
   }
 }
 
