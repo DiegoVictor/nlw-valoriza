@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import { errors } from 'celebrate';
 import { isBoom } from '@hapi/boom';
 
-import './database';
+import './database/datasource';
 
 import { routes } from './routes';
 import routeAliases from './middlewares/routeAliases';
