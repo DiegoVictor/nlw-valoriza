@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 import { classToPlain } from 'class-transformer';
 
-import { TagsRepositories } from '../repositories/TagsRepositories';
+import { TagsRepository } from '../repositories/TagsRepository';
 import { ListTagsService } from '../services/ListTagsService';
 import { CountTagsService } from '../services/CountTagsService';
 import { PaginationLinks } from '../utils/PaginationLinks';
@@ -13,9 +12,8 @@ class ListTagsController {
     const { page = 1 } = request.query;
     const { currentUrl } = request;
 
-    const tagsRepositories = getCustomRepository(TagsRepositories);
-    const listTagsService = new ListTagsService(tagsRepositories);
-    const countTagsService = new CountTagsService(tagsRepositories);
+    const listTagsService = new ListTagsService(TagsRepository);
+    const countTagsService = new CountTagsService(TagsRepository);
 
     const [tags, count] = await Promise.all([
       listTagsService.execute(Number(page), limit),

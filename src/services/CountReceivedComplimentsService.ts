@@ -11,7 +11,9 @@ class CountReceivedComplimentsService {
 
   async execute(receiver_id: string): Promise<number> {
     return this.complimentsRepository.count({
-      receiver_id,
+      where: {
+        receiver_id,
+      },
     });
   }
 }

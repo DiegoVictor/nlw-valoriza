@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 
-import { ComplimentsRepositories } from '../repositories/ComplimentsRepositories';
-import { UsersRepositories } from '../repositories/UsersRepositories';
+import { ComplimentsRepository } from '../repositories/ComplimentsRepository';
+import { UsersRepository } from '../repositories/UsersRepository';
 import { CreateComplimentService } from '../services/CreateComplimentService';
 
 class CreateComplimentController {
@@ -10,14 +9,9 @@ class CreateComplimentController {
     const { tag_id, receiver_id, message } = request.body;
     const { user_id } = request;
 
-    const usersRepositories = getCustomRepository(UsersRepositories);
-    const complimentsRepositories = getCustomRepository(
-      ComplimentsRepositories
-    );
-
     const createComplimentService = new CreateComplimentService(
-      complimentsRepositories,
-      usersRepositories
+      ComplimentsRepository,
+      UsersRepository,
     );
 
     const compliment = await createComplimentService.execute({

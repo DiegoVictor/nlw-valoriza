@@ -11,7 +11,12 @@ class CreateTagService {
   }
 
   async execute(name: string): Promise<Tag> {
-    if (await this.tagsRepository.findOne({ name })) {
+    const user = await this.tagsRepository.findOne({
+      where: {
+        name,
+      },
+    });
+    if (user) {
       throw badRequest('Tag already exists', { code: 240 });
     }
 

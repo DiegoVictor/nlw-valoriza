@@ -1,8 +1,7 @@
 import { unauthorized } from '@hapi/boom';
 import { NextFunction, Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 
-import { UsersRepositories } from '../repositories/UsersRepositories';
+import { UsersRepository } from '../repositories/UsersRepository';
 
 export default async (
   request: Request,
@@ -10,9 +9,11 @@ export default async (
   next: NextFunction
 ): Promise<void> => {
   const { user_id } = request;
-
-  const usersRepositories = getCustomRepository(UsersRepositories);
-  const user = await usersRepositories.findOne(user_id);
+  const user = await UsersRepository.findOne({
+    where: {
+      id: user_id,
+    },
+  });
 
   if (user.admin) {
     return next();

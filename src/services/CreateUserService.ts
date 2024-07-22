@@ -25,17 +25,22 @@ class CreateUserService {
     admin = false,
     password,
   }: Request): Promise<Record<string, string | boolean>> {
-    if (await this.usersRepository.findOne({ email })) {
+    const user = await this.usersRepository.findOne({
+      where: {
+        email,
+      },
+    });
+    if (user) {
       throw badRequest('User already exists', { code: 140 });
     }
 
-    const user = this.usersRepository.create({
+    const data = this.usersRepository.create({
       name,
       email,
       admin,
       password: await hash(password, 8),
     });
-    await this.usersRepository.save(user);
+    await this.usersRepository.save(data);
 
     return instanceToPlain(user);
   }

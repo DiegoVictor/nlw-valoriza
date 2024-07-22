@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 
-import { ComplimentsRepositories } from '../repositories/ComplimentsRepositories';
+import { ComplimentsRepository } from '../repositories/ComplimentsRepository';
 import { CountReceivedComplimentsService } from '../services/CountReceivedComplimentsService';
 import { ListReceivedComplimentsService } from '../services/ListReceivedComplimentsService';
 import { PaginationLinks } from '../utils/PaginationLinks';
@@ -12,12 +11,11 @@ class ListUserReceivedComplimentsController {
     const { page = 1 } = request.query;
     const { user_id, currentUrl } = request;
 
-    const complimentsRepository = getCustomRepository(ComplimentsRepositories);
     const listReceivedComplimentsService = new ListReceivedComplimentsService(
-      complimentsRepository
+      ComplimentsRepository,
     );
     const countReceivedComplimentsService = new CountReceivedComplimentsService(
-      complimentsRepository
+      ComplimentsRepository,
     );
     const [compliments, count] = await Promise.all([
       listReceivedComplimentsService.execute(user_id, Number(page), limit),

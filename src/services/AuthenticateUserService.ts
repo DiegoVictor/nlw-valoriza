@@ -17,7 +17,11 @@ class AuthenticateUserService {
   }
 
   async execute({ email, password }: Request): Promise<string> {
-    const user = await this.usersRepository.findOne({ email });
+    const user = await this.usersRepository.findOne({
+      where: {
+        email,
+      },
+    });
 
     if (!user) {
       throw badRequest('Email and/or password is incorret', { code: 440 });

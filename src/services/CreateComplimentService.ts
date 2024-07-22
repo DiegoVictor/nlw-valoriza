@@ -36,7 +36,11 @@ class CreateComplimentService {
       );
     }
 
-    const receiver = await this.usersRepository.findOne(receiver_id);
+    const receiver = await this.usersRepository.findOne({
+      where: {
+        id: receiver_id,
+      },
+    });
     if (!receiver) {
       throw notFound('Receiver user not found', { code: 344 });
     }

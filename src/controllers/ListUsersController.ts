@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
 
-import { UsersRepositories } from '../repositories/UsersRepositories';
+import { UsersRepository } from '../repositories/UsersRepository';
 import { CountUsersService } from '../services/CountUsersService';
 import { ListUsersService } from '../services/ListUsersService';
 import { PaginationLinks } from '../utils/PaginationLinks';
@@ -12,9 +11,8 @@ class ListUsersController {
     const { page = 1 } = request.query;
     const { currentUrl } = request;
 
-    const usersRepositories = getCustomRepository(UsersRepositories);
-    const listUsersService = new ListUsersService(usersRepositories);
-    const countUsersService = new CountUsersService(usersRepositories);
+    const listUsersService = new ListUsersService(UsersRepository);
+    const countUsersService = new CountUsersService(UsersRepository);
 
     const [users, count] = await Promise.all([
       listUsersService.execute(Number(page), limit),
