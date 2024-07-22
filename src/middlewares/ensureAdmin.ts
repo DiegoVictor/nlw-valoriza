@@ -6,7 +6,7 @@ import { UsersRepository } from '../repositories/UsersRepository';
 export default async (
   request: Request,
   _: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   const { user_id } = request;
   const user = await UsersRepository.findOne({

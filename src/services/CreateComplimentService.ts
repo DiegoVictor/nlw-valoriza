@@ -17,7 +17,7 @@ class CreateComplimentService {
 
   constructor(
     complimentsRepository: Repository<Compliment>,
-    usersRepository: Repository<User>
+    usersRepository: Repository<User>,
   ) {
     this.usersRepository = usersRepository;
     this.complimentsRepository = complimentsRepository;
@@ -32,7 +32,7 @@ class CreateComplimentService {
     if (receiver_id === sender_id) {
       throw badRequest(
         'Is not allowed create a compliment from and to the same user',
-        { code: 340 }
+        { code: 340 },
       );
     }
 

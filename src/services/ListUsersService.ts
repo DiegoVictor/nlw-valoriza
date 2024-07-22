@@ -12,7 +12,7 @@ class ListUsersService {
 
   async execute(
     page: number,
-    limit: number
+    limit: number,
   ): Promise<Record<string, string | boolean>> {
     const users = await this.usersRepository.find({
       take: limit,

@@ -27,7 +27,7 @@ class ListUserSentComplimentsController {
     const pagesTotal = Math.ceil(count / limit);
     if (pagesTotal > 1) {
       response.links(
-        PaginationLinks.generate(Number(page), pagesTotal, currentUrl)
+        PaginationLinks.generate(Number(page), pagesTotal, currentUrl),
       );
     }
 
