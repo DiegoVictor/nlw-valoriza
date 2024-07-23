@@ -42,7 +42,7 @@ class CreateUserService {
     });
     await this.usersRepository.save(data);
 
-    return instanceToPlain(user);
+    return instanceToPlain(data);
   }
 }
 
