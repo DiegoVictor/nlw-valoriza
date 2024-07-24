@@ -1,30 +1,29 @@
 import request from 'supertest';
-import { Connection, createConnection, getRepository } from 'typeorm';
+import { JestDatasource } from '../utils/datasource';
 
 import { app } from '../../src/app';
 import { User } from '../../src/entities/User';
 import factory from '../utils/factory';
 import token from '../utils/jwtoken';
 
-let connection: Connection;
-
 describe('Users', () => {
-  beforeAll(async () => {
-    connection = await createConnection();
-  });
+  const datasource = new JestDatasource();
 
   beforeEach(async () => {
+    const connection = await datasource.getConnection();
     await connection.query('DELETE FROM users');
   });
 
   afterAll(async () => {
-    await connection.close();
+    const connection = await datasource.getConnection();
+    await connection.destroy();
   });
 
   it('should be able to list users', async () => {
-    const users = await factory.attrsMany<User>('User', 5, { admin: true });
+    const connection = await datasource.getConnection();
 
-    const usersRepository = getRepository(User);
+    const users = await factory.attrsMany<User>('User', 5, { admin: true });
+    const usersRepository = connection.getRepository(User);
     const [{ id: user_id }] = await usersRepository.save(
       users.map((user) => usersRepository.create(user)),
     );
@@ -48,9 +47,10 @@ describe('Users', () => {
   });
 
   it('should be able to list a second page of users', async () => {
-    const users = await factory.attrsMany<User>('User', 25, { admin: true });
+    const connection = await datasource.getConnection();
 
-    const usersRepository = getRepository(User);
+    const users = await factory.attrsMany<User>('User', 25, { admin: true });
+    const usersRepository = connection.getRepository(User);
     const [{ id: user_id }] = await usersRepository.save(
       users.map((user) => usersRepository.create(user)),
     );
@@ -74,10 +74,12 @@ describe('Users', () => {
   });
 
   it('should be able to create a new admin user', async () => {
+    const connection = await datasource.getConnection();
+
     const admin = await factory.attrs<User>('User', { admin: true });
     const user = await factory.attrs<User>('User', { admin: true });
 
-    const usersRepository = getRepository(User);
+    const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
       usersRepository.create(admin),
     );
@@ -99,10 +101,12 @@ describe('Users', () => {
   });
 
   it('should be able to create a new non admin user', async () => {
+    const connection = await datasource.getConnection();
+
     const admin = await factory.attrs<User>('User', { admin: true });
     const user = await factory.attrs<User>('User');
 
-    const usersRepository = getRepository(User);
+    const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
       usersRepository.create(admin),
     );
@@ -127,10 +131,12 @@ describe('Users', () => {
   });
 
   it('should not be able to duplicate a user', async () => {
+    const connection = await datasource.getConnection();
+
     const admin = await factory.attrs<User>('User', { admin: true });
     const user = await factory.attrs<User>('User');
 
-    const usersRepository = getRepository(User);
+    const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
       usersRepository.create(admin),
     );

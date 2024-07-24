@@ -1,26 +1,24 @@
 import 'dotenv/config';
 import { Request } from 'express';
 import { faker } from '@faker-js/faker';
-import { Connection, createConnection, getRepository } from 'typeorm';
+import { JestDatasource } from '../utils/datasource';
 
 import { User } from '../../src/entities/User';
 import ensureAuthenticated from '../../src/middlewares/ensureAuthenticated';
 import factory from '../utils/factory';
 import token from '../utils/jwtoken';
 
-let connection: Connection;
-
 describe('ensureAuthenticated', () => {
-  beforeAll(async () => {
-    connection = await createConnection();
-  });
+  const datasource = new JestDatasource();
 
   beforeEach(async () => {
+    const connection = await datasource.getConnection();
     await connection.query('DELETE FROM users');
   });
 
   afterAll(async () => {
-    await connection.close();
+    const connection = await datasource.getConnection();
+    await connection.destroy();
   });
 
   const res = {
@@ -30,8 +28,10 @@ describe('ensureAuthenticated', () => {
   const next = jest.fn();
 
   it('should be authorizated', async () => {
+    const connection = await datasource.getConnection();
+
     const user = await factory.attrs<User>('User', { admin: true });
-    const usersRepository = getRepository(User);
+    const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
       usersRepository.create(user),
     );

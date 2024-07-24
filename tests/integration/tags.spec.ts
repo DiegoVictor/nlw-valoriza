@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { Connection, createConnection, getRepository } from 'typeorm';
+import { JestDatasource } from '../utils/datasource';
 
 import { app } from '../../src/app';
 import { Tag } from '../../src/entities/Tag';
@@ -7,14 +7,11 @@ import { User } from '../../src/entities/User';
 import factory from '../utils/factory';
 import token from '../utils/jwtoken';
 
-let connection: Connection;
-
 describe('Tags', () => {
-  beforeAll(async () => {
-    connection = await createConnection();
-  });
+  const datasource = new JestDatasource();
 
   beforeEach(async () => {
+    const connection = await datasource.getConnection();
     await Promise.all([
       connection.query('DELETE FROM tags'),
       connection.query('DELETE FROM users'),
@@ -22,15 +19,18 @@ describe('Tags', () => {
   });
 
   afterAll(async () => {
-    await connection.close();
+    const connection = await datasource.getConnection();
+    await connection.destroy();
   });
 
   it('should be able list tags', async () => {
+    const connection = await datasource.getConnection();
+
     const user = await factory.attrs<User>('User', { admin: true });
     const tags = await factory.attrsMany<Tag>('Tag', 5);
 
-    const usersRepository = getRepository(User);
-    const tagsRepository = getRepository(Tag);
+    const usersRepository = connection.getRepository(User);
+    const tagsRepository = connection.getRepository(Tag);
     const [{ id: user_id }] = await Promise.all([
       usersRepository.save(usersRepository.create(user)),
       tagsRepository.save(tags.map((tag) => tagsRepository.create(tag))),
@@ -54,11 +54,13 @@ describe('Tags', () => {
   });
 
   it('should be able list a second page of tags', async () => {
+    const connection = await datasource.getConnection();
+
     const user = await factory.attrs<User>('User', { admin: true });
     const tags = await factory.attrsMany<Tag>('Tag', 25);
 
-    const usersRepository = getRepository(User);
-    const tagsRepository = getRepository(Tag);
+    const usersRepository = connection.getRepository(User);
+    const tagsRepository = connection.getRepository(Tag);
     const [{ id: user_id }] = await Promise.all([
       usersRepository.save(usersRepository.create(user)),
       tagsRepository.save(tags.map((tag) => tagsRepository.create(tag))),
@@ -82,10 +84,12 @@ describe('Tags', () => {
   });
 
   it('should be able to create a new tag', async () => {
+    const connection = await datasource.getConnection();
+
     const tag = await factory.attrs<Tag>('Tag');
     const user = await factory.attrs<User>('User', { admin: true });
 
-    const usersRepository = getRepository(User);
+    const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
       usersRepository.create(user),
     );
@@ -105,10 +109,12 @@ describe('Tags', () => {
   });
 
   it('should not be able to duplicate a tag', async () => {
+    const connection = await datasource.getConnection();
+
     const tag = await factory.attrs<Tag>('Tag');
     const user = await factory.attrs<User>('User', { admin: true });
 
-    const usersRepository = getRepository(User);
+    const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
       usersRepository.create(user),
     );
@@ -134,10 +140,12 @@ describe('Tags', () => {
   });
 
   it('should not be authorized to create a new tag', async () => {
+    const connection = await datasource.getConnection();
+
     const tag = await factory.attrs<Tag>('Tag');
     const user = await factory.attrs<User>('User', { admin: false });
 
-    const usersRepository = getRepository(User);
+    const usersRepository = connection.getRepository(User);
     const { id: user_id } = await usersRepository.save(
       usersRepository.create(user),
     );

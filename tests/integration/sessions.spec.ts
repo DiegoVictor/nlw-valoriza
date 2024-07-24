@@ -1,30 +1,29 @@
 import { hash } from 'bcrypt';
 import { verify } from 'jsonwebtoken';
 import request from 'supertest';
-import { Connection, createConnection } from 'typeorm';
+import { JestDatasource } from '../utils/datasource';
 
 import { app } from '../../src/app';
 import { User } from '../../src/entities/User';
 import factory from '../utils/factory';
 
-let connection: Connection;
-
 describe('Sessions', () => {
-  beforeAll(async () => {
-    connection = await createConnection();
-  });
+  const datasource = new JestDatasource();
 
   beforeEach(async () => {
+    const connection = await datasource.getConnection();
     await connection.query('DELETE FROM users');
   });
 
   afterAll(async () => {
-    await connection.close();
+    const connection = await datasource.getConnection();
+    await connection.destroy();
   });
 
   it('should be able to login', async () => {
-    const { admin, password, name, email } = await factory.attrs<User>('User');
+    const connection = await datasource.getConnection();
 
+    const { admin, password, name, email } = await factory.attrs<User>('User');
     const repository = connection.getRepository(User);
     await repository.save(
       repository.create({
@@ -64,8 +63,9 @@ describe('Sessions', () => {
   });
 
   it('should not be able to login with wrong password', async () => {
-    const { admin, password, name, email } = await factory.attrs<User>('User');
+    const connection = await datasource.getConnection();
 
+    const { admin, password, name, email } = await factory.attrs<User>('User');
     const repository = connection.getRepository(User);
     await repository.save(
       repository.create({

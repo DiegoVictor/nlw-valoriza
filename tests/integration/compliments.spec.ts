@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
-import { Connection, createConnection } from 'typeorm';
+import { JestDatasource } from '../utils/datasource';
 
 import { app } from '../../src/app';
 import { Compliment } from '../../src/entities/Compliment';
@@ -9,14 +9,11 @@ import { User } from '../../src/entities/User';
 import factory from '../utils/factory';
 import token from '../utils/jwtoken';
 
-let connection: Connection;
-
 describe('Compliments', () => {
-  beforeAll(async () => {
-    connection = await createConnection();
-  });
+  const datasource = new JestDatasource();
 
   beforeEach(async () => {
+    const connection = await datasource.getConnection();
     await connection.query('DELETE FROM compliments');
     await Promise.all([
       connection.query('DELETE FROM users'),
@@ -25,10 +22,13 @@ describe('Compliments', () => {
   });
 
   afterAll(async () => {
-    await connection.close();
+    const connection = await datasource.getConnection();
+    await connection.destroy();
   });
 
   it('should be able to list received compliments', async () => {
+    const connection = await datasource.getConnection();
+
     const users = await factory.attrsMany<User>('User', 2, { admin: true });
 
     const tagsRepository = connection.getRepository(Tag);
@@ -85,6 +85,8 @@ describe('Compliments', () => {
   });
 
   it('should be able to list a second page of received compliments', async () => {
+    const connection = await datasource.getConnection();
+
     const users = await factory.attrsMany<User>('User', 2);
 
     const tagsRepository = connection.getRepository(Tag);
@@ -144,6 +146,8 @@ describe('Compliments', () => {
   });
 
   it('should be able to list sent compliments', async () => {
+    const connection = await datasource.getConnection();
+
     const users = await factory.attrsMany<User>('User', 2, { admin: true });
 
     const tagsRepository = connection.getRepository(Tag);
@@ -200,6 +204,8 @@ describe('Compliments', () => {
   });
 
   it('should be able to list a second page of sent compliments', async () => {
+    const connection = await datasource.getConnection();
+
     const users = await factory.attrsMany<User>('User', 2);
 
     const tagsRepository = connection.getRepository(Tag);
@@ -259,6 +265,8 @@ describe('Compliments', () => {
   });
 
   it('should be able to create a new compliment', async () => {
+    const connection = await datasource.getConnection();
+
     const tag = await factory.attrs<Tag>('Tag');
     const user = await factory.attrs<User>('User');
 
@@ -296,8 +304,9 @@ describe('Compliments', () => {
   });
 
   it('should not be able to create a new compliment when receiver and sender is the same user', async () => {
-    const tag = await factory.attrs<Tag>('Tag');
+    const connection = await datasource.getConnection();
 
+    const tag = await factory.attrs<Tag>('Tag');
     const tagsRepository = connection.getRepository(Tag);
     const { id: tag_id } = await tagsRepository.save(
       tagsRepository.create(tag),
@@ -330,8 +339,9 @@ describe('Compliments', () => {
   });
 
   it('should not be able to create a new compliment with non existing receiver user', async () => {
-    const tag = await factory.attrs<Tag>('Tag');
+    const connection = await datasource.getConnection();
 
+    const tag = await factory.attrs<Tag>('Tag');
     const tagsRepository = connection.getRepository(Tag);
     const { id: tag_id } = await tagsRepository.save(
       tagsRepository.create(tag),
